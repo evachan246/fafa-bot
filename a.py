@@ -91,14 +91,7 @@ def image_handler(update, context):
     H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
     H2 = cv2.normalize(H2, H2, 0, 1, cv2.NORM_MINMAX, -1)
 
-    img3 = cv2.imread("resource/img3.jpg",0)
-    H3 = cv2.calcHist([img3], [0], None, [256], [0, 256])
-    H3 = cv2.normalize(H3, H3, 0, 1, cv2.NORM_MINMAX, -1)
-
-    img4 = cv2.imread("resource/img4.jpg",0)
-    H4 = cv2.calcHist([img4], [0], None, [256], [0, 256])
-    H4 = cv2.normalize(H4, H4, 0, 1, cv2.NORM_MINMAX, -1)
-    if(cv2.compareHist(photo, H1, 0)>=0.7 or cv2.compareHist(photo, H2, 0)>=0.7 or cv2.compareHist(photo, H3, 0)>=0.7 or cv2.compareHist(photo, H4, 0)>=0.7):
+    if(cv2.compareHist(photo, H1, 0)>=0.7 or cv2.compareHist(photo, H2, 0)>=0.7):
         context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
         context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
     
