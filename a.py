@@ -82,17 +82,31 @@ def image_handler(update, context):
     imgD = cv2.imread("image.jpg",0)
     photo = cv2.calcHist([imgD], [0], None, [256], [0, 256])
     photo = cv2.normalize(photo, photo, 0, 1, cv2.NORM_MINMAX, -1)
+
     img1 = cv2.imread("resource/img1.jpg",0)
     H1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
     H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)
+
     img2 = cv2.imread("resource/img2.jpg",0)
     H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
     H2 = cv2.normalize(H2, H2, 0, 1, cv2.NORM_MINMAX, -1)
+
+    img3 = cv2.imread("resource/img3.jpg",0)
+    H3 = cv2.calcHist([img3], [0], None, [256], [0, 256])
+    H3 = cv2.normalize(H3, H3, 0, 1, cv2.NORM_MINMAX, -1)
+
+    img4 = cv2.imread("resource/img4.jpg",0)
+    H4 = cv2.calcHist([img4], [0], None, [256], [0, 256])
+    H4 = cv2.normalize(H4, H4, 0, 1, cv2.NORM_MINMAX, -1)
     similarity1 = cv2.compareHist(photo, H1, 0)
     similarity2 = cv2.compareHist(photo, H2, 0)
+    similarity3 = cv2.compareHist(photo, H3, 0)
+    similarity4 = cv2.compareHist(photo, H4, 0)
     context.bot.sendMessage(chat_id=update.message.chat.id,text = similarity1)
     context.bot.sendMessage(chat_id=update.message.chat.id,text = similarity2)
-    if(similarity1>=0.7 or similarity2>=0.7):
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = similarity3)
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = similarity4)
+    if(similarity1>=0.7 or similarity2>=0.7 or similarity3>=0.7 or similarity4>=0.7):
         context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
     
 
@@ -110,7 +124,6 @@ def main():
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command , echo))
     dp.add_handler(MessageHandler(Filters.sticker , go))
     dp.add_handler(MessageHandler(Filters.photo , image_handler))
-    dp.add_handler(MessageHandler(Filters.gif , image_handler))
 
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
