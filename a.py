@@ -81,18 +81,20 @@ def image_handler(update, context):
     file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
     img3 = cv2.imread("image.jpg",0)
-    H3 = cv2.calcHist([img3], [0], None, [256], [0, 256])
-    H3 = cv2.normalize(H3, H3, 0, 1, cv2.NORM_MINMAX, -1)
+    photo = cv2.calcHist([img3], [0], None, [256], [0, 256])
+    photo = cv2.normalize(H3, H3, 0, 1, cv2.NORM_MINMAX, -1)
     img2 = cv2.imread("img2.jpg",0)
     H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
     H1 = cv2.normalize(H2, H2, 0, 1, cv2.NORM_MINMAX, -1)
     img1 = cv2.imread("img1.jpg",0)
     H1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
     H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)
-    similarity1 = cv2.compareHist(H1, H2, 0)
-    similarity2 = cv2.compareHist(H3, H2, 0)
-    context.bot.sendMessage(chat_id=update.message.chat.id,text = 'Hi2')
-    context.bot.sendMessage(chat_id=update.message.chat.id,text = str(similarity2))
+
+    similarity1 = cv2.compareHist(photo, H1, 0)
+    similarity2 = cv2.compareHist(photo, H2, 0)
+    if(similarity1>=0.7 or ssimilarity2>=0.7):
+        context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
+    
 
 
 def main():
