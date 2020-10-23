@@ -90,9 +90,9 @@ def image_handler(update, context):
     H1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
     H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)
     similarity1 = cv2.compareHist(H1, H2, 0)
-    similarity1 = cv2.compareHist(H3, H2, 0)
+    similarity2 = cv2.compareHist(H3, H2, 0)
     context.bot.sendMessage(chat_id=update.message.chat.id,text = 'Hi2')
-    context.bot.sendMessage(chat_id=update.message.chat.id,text = str(similarity1))
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = str(similarity2))
 
 
 def main():
