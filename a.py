@@ -78,6 +78,8 @@ def go(update, context):
     
 def image_handler(update, bot):    
     update.message.reply_text("ABC")
+    file = bot.getFile(update.message.photo[-1].file_id)
+    update.message.reply_text("file_id: " + str(update.message.photo.file_id))
     img2 = cv2.imread("img2.jpg",0)
     H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
     update.message.reply_text(H2/H2)
