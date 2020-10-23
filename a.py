@@ -99,33 +99,7 @@ def image_handler(update, context):
 def docmsg(update, context):
     if update.message.document.mime_type == "video/mp4":
         context.bot.sendMessage(chat_id=update.message.chat.id,text = "This is a GIF!")
-        file2 = context.bot.getFile(update.message.file_id)
-        context.bot.sendMessage(chat_id=update.message.chat.id,text = "Get ")
-        file2.download('image.gif')
-        img = Image.open(file2)
-        img.convert('RGB')
-        img.save('imagegif.jpg')
-        context.bot.sendMessage(chat_id=update.message.chat.id,text = "Fin JPG")
-        imgD = cv2.imread('imagegif.jpg',0)
-        photo = cv2.calcHist([imgD], [0], None, [256], [0, 256])
-        photo = cv2.normalize(photo, photo, 0, 1, cv2.NORM_MINMAX, -1)
-
-        img1 = cv2.imread("resource/img1.jpg",0)
-        H1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
-        H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)
-
-        img2 = cv2.imread("resource/img2.jpg",0)
-        H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
-        H2 = cv2.normalize(H2, H2, 0, 1, cv2.NORM_MINMAX, -1)
-
-        if(cv2.compareHist(photo, H1, 0)>=0.7 or cv2.compareHist(photo, H2, 0)>=0.7):
-            context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
-            context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
-
-
-
-
-
+        
 def main():
     """Start the bot."""
     TOKEN = '1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8'
