@@ -97,10 +97,10 @@ def image_handler(update, context):
         context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
 
 def docmsg(update, context):
-   if update.message.document.mime_type == "video/mp4":
+    if update.message.document.mime_type == "video/mp4":
         context.bot.sendMessage(chat_id=update.message.chat.id,text = "This is a GIF!")
         file2 = context.bot.getFile(update.message.file_id)
-        context.bot.sendMessage(chat_id=update.message.chat.id,text = "Get GIF")
+        context.bot.sendMessage(chat_id=update.message.chat.id,text = "Get ")
         file2.download('image.gif')
         img = Image.open(file2)
         img.convert('RGB')
