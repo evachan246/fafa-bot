@@ -82,23 +82,18 @@ def image_handler(update, context):
     imgD = cv2.imread("image.jpg",0)
     photo = cv2.calcHist([imgD], [0], None, [256], [0, 256])
     photo = cv2.normalize(photo, photo, 0, 1, cv2.NORM_MINMAX, -1)
-
     img1 = cv2.imread("resource/img1.jpg",0)
     H1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
     H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)
-
     img2 = cv2.imread("resource/img2.jpg",0)
     H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
     H2 = cv2.normalize(H2, H2, 0, 1, cv2.NORM_MINMAX, -1)
-
     img3 = cv2.imread("resource/img3.jpg",0)
     H3 = cv2.calcHist([img3], [0], None, [256], [0, 256])
     H3 = cv2.normalize(H3, H3, 0, 1, cv2.NORM_MINMAX, -1)
-
     img4 = cv2.imread("resource/img4.jpg",0)
     H4 = cv2.calcHist([img4], [0], None, [256], [0, 256])
     H4 = cv2.normalize(H4, H4, 0, 1, cv2.NORM_MINMAX, -1)
-
     similarity1 = cv2.compareHist(photo, H1, 0)
     similarity2 = cv2.compareHist(photo, H2, 0)
     similarity3 = cv2.compareHist(photo, H3, 0)
