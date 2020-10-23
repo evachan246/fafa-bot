@@ -77,7 +77,7 @@ def go(update, context):
 
     
 def image_handler(update, context):    
-    context.bot.sendMessage(chat_id=update.message.chat.id,text = 'Hi')
+    
     file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
     img3 = cv2.imread("image.jpg",0)
@@ -89,10 +89,11 @@ def image_handler(update, context):
     img1 = cv2.imread("img1.jpg",0)
     H1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
     H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)
-
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = similarity1)
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = similarity2)
     similarity1 = cv2.compareHist(photo, H1, 0)
     similarity2 = cv2.compareHist(photo, H2, 0)
-    if(similarity1>=0.7 or ssimilarity2>=0.7):
+    if(similarity1>=0.7 or similarity2>=0.7):
         context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
     
 
