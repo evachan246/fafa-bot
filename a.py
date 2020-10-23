@@ -58,14 +58,14 @@ def echo(update, context):
                 if is_found:
                     List[Temp][1] += 1
                     if(List[Temp][1]%5==0):
-                        context.bot.sendMessage(chat_id=update.message.chat.id,text = str(update.message.from_user.first_name)+' dont say dllm plz, you speaked '+str(List[Temp][1])+' times ')
+                        context.bot.sendMessage(chat_id=update.message.chat.id,text = str(update.message.from_user.first_name)+' 唔好講粗口, you speaked '+str(List[Temp][1])+' times ')
                     break
             if not is_found:
                 List.append([x,1])
 
 def go(update, context):
     x = update.message.from_user.id
-    if( x == 81817865600):
+    if( x == 0):
        update.message.reply_text(text = "賊")
     #y = update.message.sticker.file_id
     b = update.message.sticker.file_unique_id
