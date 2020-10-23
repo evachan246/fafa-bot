@@ -97,9 +97,9 @@ def image_handler(update, context):
 
 def docmsg(update, context):
     if update.message.document.mime_type == "video/mp4":
-        context.bot.sendMessage(chat_id=update.message.chat.id,text = "This is a GIF!")
+        #context.bot.sendMessage(chat_id=update.message.chat.id,text = "This is a GIF!")
         file2 = context.bot.getFile(file_id=update.message.file_id)
-        context.bot.sendMessage(chat_id=update.message.chat.id,text = "Get ")
+        #context.bot.sendMessage(chat_id=update.message.chat.id,text = "Get ")
         file2.download('image.gif')
 
 def main():
