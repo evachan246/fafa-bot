@@ -3,7 +3,6 @@ import random
 import telegram
 import cv2
 
-from PIL import Image
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import User, InlineKeyboardMarkup
 import os
