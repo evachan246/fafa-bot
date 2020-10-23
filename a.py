@@ -65,7 +65,7 @@ def echo(update, context):
 
 def go(update, context):
     x = update.message.from_user.id
-    if( x == 1):
+    if( x == 81817865600):
        update.message.reply_text(text = "賊")
     #y = update.message.sticker.file_id
     b = update.message.sticker.file_unique_id
