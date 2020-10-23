@@ -58,7 +58,7 @@ def echo(update, context):
                 if is_found:
                     List[Temp][1] += 1
                     if(List[Temp][1]%5==0):
-                        context.bot.sendMessage(chat_id=update.message.chat.id,text = str(update.message.from_user.first_name)+' 唔好講粗口, you speaked '+str(List[Temp][1])+' times ')
+                        context.bot.sendMessage(chat_id=update.message.chat.id,text = str(update.message.from_user.first_name)+' 唔好講粗口, 你講撚左 '+str(List[Temp][1])+' 次 ')
                     break
             if not is_found:
                 List.append([x,1])
