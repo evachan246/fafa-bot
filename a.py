@@ -3,6 +3,7 @@ import random
 import telegram
 import cv2
 
+from PIL import Image
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import User, InlineKeyboardMarkup
 import os
@@ -101,7 +102,6 @@ def docmsg(update, context):
         file2 = context.bot.getFile(update.message.file_id)
         context.bot.sendMessage(chat_id=update.message.chat.id,text = "Get ")
         file2.download('image.gif')
-        processImage(file2)
 
 def main():
     """Start the bot."""
