@@ -100,6 +100,7 @@ def image_handler(update, context):
     H4 = cv2.normalize(H4, H4, 0, 1, cv2.NORM_MINMAX, -1)
     if(cv2.compareHist(photo, H1, 0)>=0.7 or cv2.compareHist(photo, H2, 0)>=0.7 or cv2.compareHist(photo, H3, 0)>=0.7 or cv2.compareHist(photo, H4, 0)>=0.7):
         context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
+        context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
     
 
 
