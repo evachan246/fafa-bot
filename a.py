@@ -80,7 +80,12 @@ def image_handler(update, context):
     context.bot.sendMessage(chat_id=update.message.chat.id,text = 'Hi')
     img2 = cv2.imread("img2.jpg",0)
     H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
+    img1 = cv2.imread("img1.jpg",0)
+    H1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
+    H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)
+    similarity1 = cv2.compareHist(H1, H2, 0)
     context.bot.sendMessage(chat_id=update.message.chat.id,text = 'Hi2')
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = str(similarity1))
 
 
 def main():
