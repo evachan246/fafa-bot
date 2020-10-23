@@ -110,7 +110,7 @@ def main():
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command , echo))
     dp.add_handler(MessageHandler(Filters.sticker , go))
     dp.add_handler(MessageHandler(Filters.photo , image_handler))
-    dp.add_handler(MessageHandler(Filters.document.mime_type("video/mp4") , image_handler))
+    dp.add_handler(MessageHandler(Filters.gif , image_handler))
 
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
