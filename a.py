@@ -3,6 +3,7 @@ import random
 import telegram
 import cv2
 
+from PIL import Image
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import User, InlineKeyboardMarkup
 import os
@@ -76,25 +77,11 @@ def go(update, context):
         
 
     
-def image_handler(update, context):    
-    file = context.bot.getFile(update.message.photo[-1].file_id)
-    file.download('image.jpg')
-    imgD = cv2.imread("image.jpg",0)
-    photo = cv2.calcHist([imgD], [0], None, [256], [0, 256])
-    photo = cv2.normalize(photo, photo, 0, 1, cv2.NORM_MINMAX, -1)
+def image_handler(update, context):
+    context.bot.sendMessage('HI') 
+    context.bot.sendMessage(update.message.photo[-1].file_id)    
 
-    img1 = cv2.imread("resource/img1.jpg",0)
-    H1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
-    H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)
-
-    img2 = cv2.imread("resource/img2.jpg",0)
-    H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
-    H2 = cv2.normalize(H2, H2, 0, 1, cv2.NORM_MINMAX, -1)
-
-    if(cv2.compareHist(photo, H1, 0)>=0.7 or cv2.compareHist(photo, H2, 0)>=0.7):
-        context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
-        context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
-
+   
 
 def gif_handler(update, context):    
     file = context.bot.getFile(update.message.photo[-1].file_id)
