@@ -3,6 +3,7 @@ import random
 import telegram
 import cv2
 
+from PIL import Image
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import User, InlineKeyboardMarkup
 import os
@@ -98,7 +99,36 @@ def image_handler(update, context):
 def docmsg(update, context):
     if update.message.document.mime_type == "video/mp4":
         context.bot.sendMessage(chat_id=update.message.chat.id,text = "This is a GIF!")
-        
+        file2 = context.bot.getFile(update.message.file_id)
+        context.bot.sendMessage(chat_id=update.message.chat.id,text = "Get ")
+        file2.download('image.gif')
+        processImage(file2)
+
+def processImage( infile ):
+
+    try:
+        im = Image.open( infile )
+    except IOError:
+        sys.exit(1)
+
+    i = 0
+
+    try:
+        while 1:
+
+            im2 = im.convert('RGBA')
+            im2.load()
+
+            background = Image.new("RGB", im2.size, (255, 255, 255))
+            background.paste(im2, mask = im2.split()[3] )
+            background.save('imgGif.jpg', 'JPEG', quality=80)
+
+            i += 1
+            im.seek( im.tell() + 1 )
+
+    except EOFError:
+        pass # end of sequence
+
 def main():
     """Start the bot."""
     TOKEN = '1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8'
