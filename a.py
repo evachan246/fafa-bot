@@ -76,7 +76,7 @@ def go(update, context):
 
    
 def image_handler(bot, update):
-    file  bot.getFile(update.message.photo[-1].file_id)
+    file=bot.getFile(update.message.photo[-1].file_id)
     update.message.reply_text("file_id: " + str(update.message.photo.file_id))
     file.download('image.jpg')
 
