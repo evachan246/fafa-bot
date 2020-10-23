@@ -74,10 +74,12 @@ def go(update, context):
     if(b == 'AgADIwADO8nACw') :
         context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
 
-    
-def image_handler(update, bot):    
+   
+def image_handler(bot, update):
+    file  bot.getFile(update.message.photo[-1].file_id)
     update.message.reply_text("file_id: " + str(update.message.photo.file_id))
-    
+    file.download('image.jpg')
+
 def main():
     """Start the bot."""
     TOKEN = '1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8'
