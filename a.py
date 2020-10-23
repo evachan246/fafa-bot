@@ -95,9 +95,9 @@ def image_handler(update, context):
         context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
         context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
 
-def docmsg(update, message):
-   if message.document.mime_type == "video/mp4":
-      message.bot.sendMessage(chat_id=update.message.chat.id,text = "This is a GIF!")
+def docmsg(update, context):
+   if update.message.document.mime_type == "video/mp4":
+      context.bot.sendMessage(chat_id=update.message.chat.id,text = "This is a GIF!")
 
 
 
