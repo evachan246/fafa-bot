@@ -100,15 +100,18 @@ def gif_handler(update, context):
     file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
     imgD = cv2.imread("image.jpg",0)
-    photo = cv2.calcHist([imgD], [0], None, [256], [0, 256])
+    grayD = rgb2gray(imgD)
+    photo = cv2.calcHist([grayD], [0], None, [256], [0, 256])
     photo = cv2.normalize(photo, photo, 0, 1, cv2.NORM_MINMAX, -1)
 
     img1 = cv2.imread("resource/img1.jpg",0)
-    H1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
+    gray1 = rgb2gray(img1)
+    H1 = cv2.calcHist([gray1], [0], None, [256], [0, 256])
     H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)
 
     img2 = cv2.imread("resource/img2.jpg",0)
-    H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
+    gray2 = rgb2gray(img2)
+    H2 = cv2.calcHist([gray2], [0], None, [256], [0, 256])
     H2 = cv2.normalize(H2, H2, 0, 1, cv2.NORM_MINMAX, -1)
 
     if(cv2.compareHist(photo, H1, 0)>=0.7 or cv2.compareHist(photo, H2, 0)>=0.7):
