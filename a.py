@@ -78,7 +78,7 @@ def go(update, context):
     
 def image_handler(update, context):    
     context.bot.sendMessage(chat_id=update.message.chat.id,text = 'Hi')
-    file = bot.getFile(update.message.photo[-1].file_id)
+    file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
     img3 = cv2.imread("image.jpg",0)
     H3 = cv2.calcHist([img3], [0], None, [256], [0, 256])
