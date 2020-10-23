@@ -77,8 +77,7 @@ def go(update, context):
 
     
 def image_handler(update, context):    
-    update.message.reply_text("ABC")
-    context.bot.sendMessage(chat_id=update.message.chat.id,text = "file_id: " + str(update.message.photo.file_id))
+    update.message.reply_text( "file_id: " + str(update.message.photo.file_id))
     img2 = cv2.imread("img2.jpg",0)
     H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
     context.bot.sendMessage(chat_id=update.message.chat.id,text = H2)
