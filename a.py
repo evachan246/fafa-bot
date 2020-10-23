@@ -95,11 +95,11 @@ def image_handler(update, context):
         context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
         context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
 
+def docmsg(update, message):
+   if message.document.mime_type == "video/mp4":
+      message.bot.sendMessage(chat_id=update.message.chat.id,text = "This is a GIF!")
 
-def gif_handler(update, context):    
-    context.bot.sendMessage('HI') 
-    context.bot.sendMessage(update.message.photo[-1].file_id)
-    
+
 
 
 def main():
@@ -114,8 +114,7 @@ def main():
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.sticker , go))
     dp.add_handler(MessageHandler(Filters.photo , image_handler))
-    dp.add_handler(MessageHandler(Filters.document.mime_type("video/mp4") , gif_handler))
-
+    dp.add_handler(MessageHandler(Filters.document, docmsg))
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
