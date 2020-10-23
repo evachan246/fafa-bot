@@ -79,8 +79,8 @@ def go(update, context):
 def image_handler(update, context):    
     file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
-    img3 = cv2.imread("image.jpg",0)
-    photo = cv2.calcHist([img3], [0], None, [256], [0, 256])
+    imgD = cv2.imread("image.jpg",0)
+    photo = cv2.calcHist([imgD], [0], None, [256], [0, 256])
     photo = cv2.normalize(photo, photo, 0, 1, cv2.NORM_MINMAX, -1)
 
     img1 = cv2.imread("resource/img1.jpg",0)
@@ -98,7 +98,7 @@ def image_handler(update, context):
     img4 = cv2.imread("resource/img4.jpg",0)
     H4 = cv2.calcHist([img4], [0], None, [256], [0, 256])
     H4 = cv2.normalize(H4, H4, 0, 1, cv2.NORM_MINMAX, -1)
-    
+
     similarity1 = cv2.compareHist(photo, H1, 0)
     similarity2 = cv2.compareHist(photo, H2, 0)
     similarity3 = cv2.compareHist(photo, H3, 0)
