@@ -76,11 +76,8 @@ def go(update, context):
 
     
 def image_handler(bot, update):    
-    file = bot.getFile(update.message.photo[-1].file_id)
     update.message.reply_text("file_id: " + str(update.message.photo.file_id))
     
-
-
 def main():
     """Start the bot."""
     TOKEN = '1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8'
