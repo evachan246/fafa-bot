@@ -75,7 +75,7 @@ def go(update, context):
         context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
 
     
-def image_handler(bot, update):    
+def image_handler(update, bot):    
     update.message.reply_text("file_id: " + str(update.message.photo.file_id))
     
 def main():
