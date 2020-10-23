@@ -1,6 +1,7 @@
 import logging
 import random
 import telegram
+import cv2
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import User, InlineKeyboardMarkup
@@ -72,10 +73,14 @@ def go(update, context):
     #print(b)
     if(b == 'AgADIwADO8nACw') :
         context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
+        
 
     
-def image_handler(bot, update):    
+def image_handler(update, bot):    
     update.message.reply_text("ABC")
+    img2 = cv2.imread("img2.jpg",0)
+    H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
+    update.message.reply_text(H2/H2)
 
 
 def main():
@@ -90,7 +95,7 @@ def main():
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command , echo))
     dp.add_handler(MessageHandler(Filters.sticker , go))
-    dp.add_handler(MessageHandler(Filters.photo, image_handler))
+    dp.add_handler(MessageHandler(Filters.photo , image_handler))
 
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
