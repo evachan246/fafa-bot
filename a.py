@@ -9,6 +9,8 @@ import os
 PORT = int(os.environ.get('PORT', 5000))
 TEMP = 0
 List = []
+imgList = []
+H = []
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -76,6 +78,25 @@ def go(update, context):
         
 
     
+def image_handlertesting(update, context):    
+    file = context.bot.getFile(update.message.photo[-1].file_id)
+    file.download('image.jpg')
+    imgD = cv2.imread("image.jpg",0)
+    photo = cv2.calcHist([imgD], [0], None, [256], [0, 256])
+    photo = cv2.normalize(photo, photo, 0, 1, cv2.NORM_MINMAX, -1)
+
+    for i in range(3):
+        name = "resource/img"+(i+1)+".jpg"
+        imgList[i] = cv2.imread(name,0)
+        H[i] = cv2.calcHist([imgList[i]], [0], None, [256], [0, 256])
+        H[i] = cv2.normalize(H[i], H[i], 0, 1, cv2.NORM_MINMAX, -1)
+    for i in range(3):
+        if(cv2.compareHist(photo, H[i], 0)>=0.8):
+            context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
+            context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
+            break
+
+
 def image_handler(update, context):    
     file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
@@ -117,7 +138,7 @@ def main():
     dp.add_handler(CommandHandler("help", help_command))
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.sticker , go))
-    dp.add_handler(MessageHandler(Filters.photo , image_handler))
+    dp.add_handler(MessageHandler(Filters.photo , image_handlertesting))
     dp.add_handler(MessageHandler(Filters.document, docmsg))
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
