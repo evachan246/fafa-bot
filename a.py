@@ -134,11 +134,11 @@ def main():
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler("start", start_command))
-    dp.add_handler(CommandHandler("help", help_command))
+    #dp.add_handler(CommandHandler("start", start_command))
+    #dp.add_handler(CommandHandler("help", help_command))
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.sticker , go))
-    dp.add_handler(MessageHandler(Filters.photo , image_handlertesting))
+    dp.add_handler(MessageHandler(Filters.photo , image_handler))
     dp.add_handler(MessageHandler(Filters.document, docmsg))
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
