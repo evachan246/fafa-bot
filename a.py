@@ -87,7 +87,7 @@ def image_handlertesting(update, context):
 
     for i in range(3):
         name = "resource/img"+(i+1)+".jpg"
-        imgList[i] = cv2.imread(name,0)
+        imgList[i] = cv2.imread("resource/img"+(i+1)+".jpg",0)
         H[i] = cv2.calcHist([imgList[i]], [0], None, [256], [0, 256])
         H[i] = cv2.normalize(H[i], H[i], 0, 1, cv2.NORM_MINMAX, -1)
     for i in range(3):
