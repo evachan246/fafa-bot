@@ -124,31 +124,38 @@ def image2_handler(update, context):
 
 
 def make_regalur_image(img, size=(256, 256)):
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = "1")
     return img.resize(size).convert('RGB')
 
 
 def split_image(img, part_size=(4, 4)): 
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = "2")
     w, h = img.size       #w = 256   h  =  256
     pw, ph = part_size    #pw =  64   ph = 64
 
     assert w % pw == h % ph == 0 
-
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = "3")
     return [img.crop((i, j, i + pw, j + ph)).copy() \
             for i in range(0, w, pw) \
             for j in range(0, h, ph)]
 
 
 def hist_similar(lh, rh):
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = "4")
     assert len(lh) == len(rh)
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = "6")
     return sum(1 - (0 if l == r else float(abs(l - r)) / max(l, r)) for l, r in zip(lh, rh)) / len(lh)
 
 
 def calc_similar(li, ri):
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = "5")
     return sum(hist_similar(l.histogram(), r.histogram()) for l, r in zip(split_image(li), split_image(ri))) / 256.0
 
 
 def calc_similar_by_path(lf, rf):
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = "7")
     li, ri = make_regalur_image(Image.open(lf)), make_regalur_image(Image.open(rf))
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = "8")
     return calc_similar(li, ri)
 
 
