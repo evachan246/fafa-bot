@@ -157,7 +157,7 @@ def image2_handler(update, context):
     file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
     #$imgD = cv2.imread("image.jpg",0)
-    for i in xrange(1, 4):
+    for i in range(1, 4):
         context.bot.sendMessage(chat_id=update.message.chat.id,text = 'ABS' + i)
 #        if(calc_similar_by_path('resource/img%d.JPG'%(i), 'image.jpg') >=0.8):
 #            context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
