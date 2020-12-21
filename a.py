@@ -127,6 +127,24 @@ def docmsg(update, context):
         #context.bot.sendMessage(chat_id=update.message.chat.id,text = "Get ")
         file2.download('image.gif')
 
+############################################################################################################################################################
+def image2_handler(update, context):    
+    file = context.bot.getFile(update.message.photo[-1].file_id)
+    file.download('image.jpg')
+    #$imgD = cv2.imread("image.jpg",0)
+    for i in range(1, 4):
+        context.bot.sendMessage(chat_id=update.message.chat.id,text = 'ABS' + i)
+#        if(calc_similar_by_path('resource/img%d.JPG'%(i), 'image.jpg') >=0.8):
+#            context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
+#            context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
+
+#def make_regalur_image(img, size = (256, 256)):
+#	return img.resize(size).convert('RGB')
+
+	
+#	make_doc_data('test/TEST4/1.JPG', 'test/TEST4/2.JPG')
+############################################################################################################################################################
+
 def main():
     """Start the bot."""
     TOKEN = '1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8'
@@ -152,22 +170,6 @@ def main():
     # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
 
-############################################################################################################################################################
-def image2_handler(update, context):    
-    file = context.bot.getFile(update.message.photo[-1].file_id)
-    file.download('image.jpg')
-    #$imgD = cv2.imread("image.jpg",0)
-    for i in range(1, 4):
-        context.bot.sendMessage(chat_id=update.message.chat.id,text = 'ABS' + i)
-#        if(calc_similar_by_path('resource/img%d.JPG'%(i), 'image.jpg') >=0.8):
-#            context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
-#            context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
 
-def make_regalur_image(img, size = (256, 256)):
-	return img.resize(size).convert('RGB')
-
-	
-#	make_doc_data('test/TEST4/1.JPG', 'test/TEST4/2.JPG')
-############################################################################################################################################################
 if __name__ == '__main__':
     main()
