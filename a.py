@@ -120,15 +120,15 @@ def image2_handler(update, context):
     for i in range(1, 4):
         context.bot.sendMessage(chat_id=update.message.chat.id,text = "resource/img%d.JPG"%(i))
         #img1 = cv2.imread("resource/img%d.JPG"%(i),0)
-        calc_similar_by_path("image.jpg","resource/img%d.JPG"%(i))
+        calc_similar_by_path("image.jpg","resource/img%d.JPG"%(i), context)
 
 
-def make_regalur_image(img, size=(256, 256)):
+def make_regalur_image(img, size=(256, 256), context):
     context.bot.sendMessage(chat_id=update.message.chat.id,text = "1")
     return img.resize(size).convert('RGB')
 
 
-def split_image(img, part_size=(4, 4)): 
+def split_image(img, part_size=(4, 4), context): 
     context.bot.sendMessage(chat_id=update.message.chat.id,text = "2")
     w, h = img.size       #w = 256   h  =  256
     pw, ph = part_size    #pw =  64   ph = 64
@@ -140,19 +140,19 @@ def split_image(img, part_size=(4, 4)):
             for j in range(0, h, ph)]
 
 
-def hist_similar(lh, rh):
+def hist_similar(lh, rh, context):
     context.bot.sendMessage(chat_id=update.message.chat.id,text = "4")
     assert len(lh) == len(rh)
     context.bot.sendMessage(chat_id=update.message.chat.id,text = "6")
     return sum(1 - (0 if l == r else float(abs(l - r)) / max(l, r)) for l, r in zip(lh, rh)) / len(lh)
 
 
-def calc_similar(li, ri):
+def calc_similar(li, ri, context):
     context.bot.sendMessage(chat_id=update.message.chat.id,text = "5")
     return sum(hist_similar(l.histogram(), r.histogram()) for l, r in zip(split_image(li), split_image(ri))) / 256.0
 
 
-def calc_similar_by_path(lf, rf):
+def calc_similar_by_path(lf, rf, context):
     context.bot.sendMessage(chat_id=update.message.chat.id,text = "7")
     li, ri = make_regalur_image(Image.open(lf)), make_regalur_image(Image.open(rf))
     context.bot.sendMessage(chat_id=update.message.chat.id,text = "8")
