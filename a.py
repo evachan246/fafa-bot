@@ -75,6 +75,28 @@ def go(update, context):
     #print(b)
     if(b == 'AgADIwADO8nACw') :
         context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
+        
+
+    
+def image_handlertesting(update, context):    
+    file = context.bot.getFile(update.message.photo[-1].file_id)
+    file.download('image.jpg')
+    imgD = cv2.imread("image.jpg",0)
+    photo = cv2.calcHist([imgD], [0], None, [256], [0, 256])
+    photo = cv2.normalize(photo, photo, 0, 1, cv2.NORM_MINMAX, -1)
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = str(photo))
+
+    for i in range(1,4):
+        name = "resource/img%d.jpg"%(i)
+        context.bot.sendMessage(chat_id=update.message.chat.id,text = name)
+        img1 = cv2.imread("resource/img1.jpg",0)
+        H1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
+        H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)
+
+        if(cv2.compareHist(photo, H1, 0)>=0.8):
+            context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
+            context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
+            break
 
 
 def image_handler(update, context):    
@@ -84,21 +106,21 @@ def image_handler(update, context):
     photo = cv2.calcHist([imgD], [0], None, [256], [0, 256])
     photo = cv2.normalize(photo, photo, 0, 1, cv2.NORM_MINMAX, -1)
 
+    img1 = cv2.imread("resource/img1.jpg",0)
+    H1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
+    H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)
 
-    for i in range(1, 4):
-        img = cv2.imread("resource/img%d.JPG"%(i),0)
-        H1 = cv2.calcHist([img], [0], None, [256], [0, 256])
-        H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)
-        context.bot.sendMessage(chat_id=update.message.chat.id,text = cv2.compareHist(photo, H1, 0))
-        if(cv2.compareHist(photo, H1, 0)>=0.8):
-            context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
-            context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
-            break
-        
+    img2 = cv2.imread("resource/img2.jpg",0)
+    H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
+    H2 = cv2.normalize(H2, H2, 0, 1, cv2.NORM_MINMAX, -1)
     
+    img3 = cv2.imread("resource/img3.jpg",0)
+    H3 = cv2.calcHist([img3], [0], None, [256], [0, 256])
+    H3 = cv2.normalize(H3, H2, 0, 1, cv2.NORM_MINMAX, -1)
 
-    
-    
+    if(cv2.compareHist(photo, H1, 0)>=0.8 or cv2.compareHist(photo, H2, 0)>=0.8 or cv2.compareHist(photo, H3, 0)>=0.8):
+        context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
+        context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
 
 def docmsg(update, context):
     if update.message.document.mime_type == "video/mp4":
@@ -106,23 +128,11 @@ def docmsg(update, context):
         file2 = context.bot.getFile(file_id=update.message.file_id)
         #context.bot.sendMessage(chat_id=update.message.chat.id,text = "Get ")
         file2.download('image.gif')
-        
-
-############################################################################################################################################################
-def image2_handler(update, context):    
-    file = context.bot.getFile(update.message.photo[-1].file_id)
-    file.download('image.jpg')
-    #$imgD = cv2.imread("image.jpg",0)
-    #img = cv2.imread("image.jpg",0)
-    for i in range(1, 4):
-        context.bot.sendMessage(chat_id=update.message.chat.id,text = "resource/img%d.JPG"%(i))
-
-############################################################################################################################################################
 
 def main():
     """Start the bot."""
-    TOKEN = '1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8'
-    updater = Updater("1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8", use_context=True)
+    TOKEN = '1492222836:AAH7Yv_JGrwH94tFYEut-wu01PC5oxAtYwM'
+    updater = Updater("1492222836:AAH7Yv_JGrwH94tFYEut-wu01PC5oxAtYwM", use_context=True)
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
@@ -130,14 +140,13 @@ def main():
     #dp.add_handler(CommandHandler("help", help_command))
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.sticker , go))
-    dp.add_handler(MessageHandler(Filters.photo , image_handler))
-    #dp.add_handler(MessageHandler(Filters.photo , image_handler))
+    dp.add_handler(MessageHandler(Filters.photo , image_handlertesting))
     dp.add_handler(MessageHandler(Filters.document, docmsg))
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN)
-    updater.bot.setWebhook('https://fafa-tgbot.herokuapp.com/' + TOKEN)
+    updater.bot.setWebhook('https://fktestingbot.herokuapp.com/' + TOKEN)
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
