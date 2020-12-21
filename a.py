@@ -157,7 +157,6 @@ def main():
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.sticker , go))
     dp.add_handler(MessageHandler(Filters.photo , image_handler))
-    dp.add_handler(MessageHandler(Filters.photo , image2_handler))
     dp.add_handler(MessageHandler(Filters.document, docmsg))
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
