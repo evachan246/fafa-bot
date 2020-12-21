@@ -120,7 +120,7 @@ def image2_handler(update, context):
     for i in range(1, 4):
         context.bot.sendMessage(chat_id=update.message.chat.id,text = "resource/img%d.JPG"%(i))
         #img1 = cv2.imread("resource/img%d.JPG"%(i),0)
-        context.bot.sendMessage(chat_id=update.message.chat.id,text = calc_similar_by_path("image.jpg","resource/img%d.JPG"%(i) ))
+        calc_similar_by_path("image.jpg","resource/img%d.JPG"%(i))
 
 
 def make_regalur_image(img, size=(256, 256)):
