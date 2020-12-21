@@ -81,12 +81,21 @@ def go(update, context):
 def image_handlertesting(update, context):    
     file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
-    imgD = make_regalur_image(cv2.imread("image.jpg",0))
+    imgD = cv2.imread("image.jpg",0)
     photo = cv2.calcHist([imgD], [0], None, [256], [0, 256])
     photo = cv2.normalize(photo, photo, 0, 1, cv2.NORM_MINMAX, -1)
-    
-def make_regalur_image(img, size=(256, 256)):
-    return img.resize(size).convert('RGB')
+
+    for i in range(3):
+        name = "resource/img"+(i+1)+".jpg"
+        imgList[i] = cv2.imread("resource/img"+(i+1)+".jpg",0)
+        H[i] = cv2.calcHist([imgList[i]], [0], None, [256], [0, 256])
+        H[i] = cv2.normalize(H[i], H[i], 0, 1, cv2.NORM_MINMAX, -1)
+    for i in range(3):
+        if(cv2.compareHist(photo, H[i], 0)>=0.8):
+            context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
+            context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
+            break
+
 
 def image_handler(update, context):    
     file = context.bot.getFile(update.message.photo[-1].file_id)
@@ -94,8 +103,6 @@ def image_handler(update, context):
     imgD = cv2.imread("image.jpg",0)
     photo = cv2.calcHist([imgD], [0], None, [256], [0, 256])
     photo = cv2.normalize(photo, photo, 0, 1, cv2.NORM_MINMAX, -1)
-    context.bot.sendMessage(chat_id=update.message.chat.id,text = photo)
-    context.bot.sendMessage(chat_id=update.message.chat.id,text = make_regalur_image(cv2.imread("image.jpg",0)))
 
     img1 = cv2.imread("resource/img1.jpg",0)
     H1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
@@ -115,7 +122,7 @@ def image_handler(update, context):
 
 def docmsg(update, context):
     if update.message.document.mime_type == "video/mp4":
-        #context.bot.sendMessage(chat_id=update.message.chat.id,text = make_regalur_image(cv2.imread("image.jpg",0)))
+        #context.bot.sendMessage(chat_id=update.message.chat.id,text = "This is a GIF!")
         file2 = context.bot.getFile(file_id=update.message.file_id)
         #context.bot.sendMessage(chat_id=update.message.chat.id,text = "Get ")
         file2.download('image.gif')
