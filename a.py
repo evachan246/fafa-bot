@@ -123,9 +123,9 @@ def image2_handler(update, context):
         calc_similar_by_path("image.jpg","resource/img%d.JPG"%(i), context)
 
 
-def make_regalur_image(img, size=(256, 256), context):
+def make_regalur_image(imga, size=(256, 256), context):
     context.bot.sendMessage(chat_id=update.message.chat.id,text = "1")
-    return img.resize(size).convert('RGB')
+    return imga.resize(size).convert('RGB')
 
 
 def split_image(img, part_size=(4, 4), context): 
