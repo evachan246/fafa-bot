@@ -116,11 +116,11 @@ def image2_handler(update, context):
     file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
     #$imgD = cv2.imread("image.jpg",0)
-    img = cv2.imread("image.jpg",0)
+    #img = cv2.imread("image.jpg",0)
     for i in range(1, 4):
         context.bot.sendMessage(chat_id=update.message.chat.id,text = "resource/img%d.JPG"%(i))
-        img1 = cv2.imread("resource/img%d.JPG"%(i),0)
-        context.bot.sendMessage(chat_id=update.message.chat.id,text = calc_similar(img, img1))
+        #img1 = cv2.imread("resource/img%d.JPG"%(i),0)
+        context.bot.sendMessage(chat_id=update.message.chat.id,text = calc_similar_by_path("image.jpg","resource/img%d.JPG"%(i) ))
 
 
 def make_regalur_image(img, size=(256, 256)):
@@ -146,6 +146,10 @@ def hist_similar(lh, rh):
 def calc_similar(li, ri):
     return sum(hist_similar(l.histogram(), r.histogram()) for l, r in zip(split_image(li), split_image(ri))) / 256.0
 
+
+def calc_similar_by_path(lf, rf):
+    li, ri = make_regalur_image(Image.open(lf)), make_regalur_image(Image.open(rf))
+    return calc_similar(li, ri)
 
 
 ############################################################################################################################################################
