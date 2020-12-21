@@ -133,53 +133,9 @@ def image2_handler(update, context):
     file.download('image.jpg')
     #$imgD = cv2.imread("image.jpg",0)
     for i in range(1, 4):
-        context.bot.sendMessage(chat_id=update.message.chat.id,text = str(calc_similar_by_path('resource/img%d.JPG'%(i), 'image.jpg')))
-        if(calc_similar_by_path('resource/img%d.JPG'%(i), 'image.jpg') >=0.8):
-            context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
-            context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
-
-def make_regalur_image(img, size = (256, 256)):
-	return img.resize(size).convert('RGB')
-
-def split_image(img, part_size = (64, 64)):
-	w, h = img.size
-	pw, ph = part_size
-
-	assert w % pw == h % ph == 0
-
-	return [img.crop((i, j, i+pw, j+ph)).copy() \
-				for i in range(0, w, pw) \
-				for j in range(0, h, ph)]
-
-def hist_similar(lh, rh):
-	assert len(lh) == len(rh)
-	return sum(1 - (0 if l == r else float(abs(l - r))/max(l, r)) for l, r in zip(lh, rh))/len(lh)
-
-def calc_similar(li, ri):
-#	return hist_similar(li.histogram(), ri.histogram())
-	return sum(hist_similar(l.histogram(), r.histogram()) for l, r in zip(split_image(li), split_image(ri))) / 16.0
+        context.bot.sendMessage(chat_id=update.message.chat.id,text = 'resource/img%d.JPG'%(i))
 
 
-def calc_similar_by_path(lf, rf):
-	li, ri = make_regalur_image(Image.open(lf)), make_regalur_image(Image.open(rf))
-	return calc_similar(li, ri)
-
-def make_doc_data(lf, rf):
-	li, ri = make_regalur_image(Image.open(lf)), make_regalur_image(Image.open(rf))
-	li.save(lf + '_regalur.png')
-	ri.save(rf + '_regalur.png')
-	fd = open('stat.csv', 'w')
-	fd.write('\n'.join(l + ',' + r for l, r in zip(map(str, li.histogram()), map(str, ri.histogram()))))
-#	print >>fd, '\n'
-#	fd.write(','.join(map(str, ri.histogram())))
-	fd.close()
-	import ImageDraw
-	li = li.convert('RGB')
-	draw = ImageDraw.Draw(li)
-	for i in xrange(0, 256, 64):
-		draw.line((0, i, 256, i), fill = '#ff0000')
-		draw.line((i, 0, i, 256), fill = '#ff0000')
-	li.save(lf + '_lines.png')
 
 
 #	make_doc_data('test/TEST4/1.JPG', 'test/TEST4/2.JPG')
