@@ -2,7 +2,6 @@ import logging
 import random
 import telegram
 import cv2
-import Image
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import User, InlineKeyboardMarkup
