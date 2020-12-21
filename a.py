@@ -94,6 +94,7 @@ def image_handler(update, context):
     imgD = cv2.imread("image.jpg",0)
     photo = cv2.calcHist([imgD], [0], None, [256], [0, 256])
     photo = cv2.normalize(photo, photo, 0, 1, cv2.NORM_MINMAX, -1)
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = photo)
     context.bot.sendMessage(chat_id=update.message.chat.id,text = make_regalur_image(cv2.imread("image.jpg",0)))
 
     img1 = cv2.imread("resource/img1.jpg",0)
