@@ -116,9 +116,12 @@ def image_handler(update, context):
     H3 = cv2.calcHist([img3], [0], None, [256], [0, 256])
     H3 = cv2.normalize(H3, H2, 0, 1, cv2.NORM_MINMAX, -1)
 
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = cv2.compareHist(photo, H1, 0))
+
     if(cv2.compareHist(photo, H1, 0)>=0.8 or cv2.compareHist(photo, H2, 0)>=0.8 or cv2.compareHist(photo, H3, 0)>=0.8):
         context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
         context.bot.kick_chat_member(chat_id=update.effective_chat.id, user_id = update.message.from_user.id)
+    
 
 def docmsg(update, context):
     if update.message.document.mime_type == "video/mp4":
@@ -126,6 +129,7 @@ def docmsg(update, context):
         file2 = context.bot.getFile(file_id=update.message.file_id)
         #context.bot.sendMessage(chat_id=update.message.chat.id,text = "Get ")
         file2.download('image.gif')
+        
 
 ############################################################################################################################################################
 def image2_handler(update, context):    
@@ -133,7 +137,7 @@ def image2_handler(update, context):
     file.download('image.jpg')
     #$imgD = cv2.imread("image.jpg",0)
     for i in range(1, 4):
-        context.bot.sendMessage(chat_id=update.message.chat.id,text = 'resource/img%d.JPG'%(i))
+        context.bot.sendMessage(chat_id=update.message.chat.id,text = "resource/img%d.JPG"%(i))
 
 
 
