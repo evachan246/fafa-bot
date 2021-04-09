@@ -171,7 +171,7 @@ def main():
     dp.add_handler(CommandHandler("start", start_command))
     #dp.add_handler(CommandHandler("help", help_command))
     # on noncommand i.e message - echo the message on Telegram
-    dp.add_handler(CommandHandler("checkTemp", checkTemp))
+    #dp.add_handler(CommandHandler("checkTemp", checkTemp))
     dp.add_handler(MessageHandler(Filters.sticker , go))
     dp.add_handler(MessageHandler(Filters.photo , image_handler))
     dp.add_handler(MessageHandler(Filters.document, docmsg))
