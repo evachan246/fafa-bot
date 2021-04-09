@@ -5,7 +5,7 @@ import cv2
 import requests
 
 
-from xml.etree import ElementTree
+#from xml.etree import ElementTree
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import User, InlineKeyboardMarkup
 import os
