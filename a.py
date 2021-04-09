@@ -148,11 +148,11 @@ def is_number(s):
     return False
 
 def checkTemp(update, context):
-    context.bot.sendMessage(chat_id=update.message.chat.id, text=str("TEST1"))
+    #context.bot.sendMessage(chat_id=update.message.chat.id, text=str("TEST1"))
     response = requests.get("https://rss.weather.gov.hk/rss/CurrentWeather.xml")
-    context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST2"))
+    #context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST2"))
     tree = ElementTree.fromstring(response.content);
-    context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST3"))
+    #context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST3"))
     textTem = tree[0][7][6].text
     arraytemp = textTem.split('\n')
     for x in arraytemp:
