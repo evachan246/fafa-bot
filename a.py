@@ -148,11 +148,11 @@ def is_number(s):
     return False
 
 def checkTemp(update, context):
-    # Use a breakpoint in the code line below to debug your script.
+    context.bot.sendMessage(chat_id=update.message.chat.id, text=str("TEST1"))
     response = requests.get("https://rss.weather.gov.hk/rss/CurrentWeather.xml")
-    update.message.reply_text('check temp3!'+ response)
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST2"))
     tree = ElementTree.fromstring(response.content);
-    update.message.reply_text('check temp2!')
+    context.bot.sendMessage(chat_id=update.message.chat.id,text = str("TEST3"))
     textTem = tree[0][7][6].text
     arraytemp = textTem.split('\n')
     for x in arraytemp:
