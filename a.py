@@ -151,6 +151,7 @@ def checkTemp(update, context):
     # Use a breakpoint in the code line below to debug your script.
     update.message.reply_text('check temp!')
     response = requests.get("https://rss.weather.gov.hk/rss/CurrentWeather.xml");
+    update.message.reply_text('check temp3!')
     tree = ElementTree.fromstring(response.content);
     update.message.reply_text('check temp2!')
     textTem = tree[0][7][6].text
