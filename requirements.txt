@@ -1,4 +1,4 @@
 python-telegram-bot == 12.7
 opencv-contrib-python-headless
-requests==0.11.1
+requests==2.25.1
 defusedxml==0.7.1
