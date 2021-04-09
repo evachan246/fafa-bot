@@ -2,7 +2,10 @@ import logging
 import random
 import telegram
 import cv2
+import requests
 
+
+from xml.etree import ElementTree
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import User, InlineKeyboardMarkup
 import os
@@ -127,6 +130,37 @@ def docmsg(update, context):
         #context.bot.sendMessage(chat_id=update.message.chat.id,text = "Get ")
         file2.download('image.gif')
 
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return True
+    except (TypeError, ValueError):
+        pass
+
+    return False
+
+def checkTemp(update, context):
+    # Use a breakpoint in the code line below to debug your script.
+    response = requests.get("https://rss.weather.gov.hk/rss/CurrentWeather.xml");
+    tree = ElementTree.fromstring(response.content);
+    textTem = tree[0][7][6].text
+    arraytemp = textTem.split('\n')
+    for x in arraytemp:
+        if(x.find("Air temperature")>=0) :
+            realTemp = x.split()
+            for y in realTemp:
+                if(is_number(y)):
+                    update.message.reply_text('今日天氣溫度為' +y+'度')
+
+
 def main():
     """Start the bot."""
     TOKEN = '1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8'
@@ -137,6 +171,7 @@ def main():
     #dp.add_handler(CommandHandler("start", start_command))
     #dp.add_handler(CommandHandler("help", help_command))
     # on noncommand i.e message - echo the message on Telegram
+    dp.add_handler(CommandHandler("checkTemp", checkTemp))
     dp.add_handler(MessageHandler(Filters.sticker , go))
     dp.add_handler(MessageHandler(Filters.photo , image_handler))
     dp.add_handler(MessageHandler(Filters.document, docmsg))
