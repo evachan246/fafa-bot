@@ -168,7 +168,7 @@ def main():
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
-    #dp.add_handler(CommandHandler("start", start_command))
+    dp.add_handler(CommandHandler("start", start_command))
     #dp.add_handler(CommandHandler("help", help_command))
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(CommandHandler("checkTemp", checkTemp))
