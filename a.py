@@ -149,8 +149,10 @@ def is_number(s):
 
 def checkTemp(update, context):
     # Use a breakpoint in the code line below to debug your script.
+    update.message.reply_text('check temp!')
     response = requests.get("https://rss.weather.gov.hk/rss/CurrentWeather.xml");
     tree = ElementTree.fromstring(response.content);
+    update.message.reply_text('check temp2!')
     textTem = tree[0][7][6].text
     arraytemp = textTem.split('\n')
     for x in arraytemp:
