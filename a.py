@@ -160,7 +160,7 @@ def checkTemp(update, context):
             realTemp = x.split()
             for y in realTemp:
                 if(is_number(y)):
-                    update.message.reply_text('今日天氣溫度為' +y+'度')
+                    update.message.reply_text('今日天氣溫度係' +y+'度')
 
 
 def main():
