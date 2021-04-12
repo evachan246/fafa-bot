@@ -78,10 +78,10 @@ def go(update, context):
     #print(b)
     if(b == 'AgADIwADO8nACw') :
         context.bot.deleteMessage(chat_id=update.message.chat.id, message_id=update.message.message_id)
-        
 
-    
-def image_handlertesting(update, context):    
+
+
+def image_handlertesting(update, context):
     file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
     imgD = cv2.imread("image.jpg",0)
@@ -100,7 +100,7 @@ def image_handlertesting(update, context):
             break
 
 
-def image_handler(update, context):    
+def image_handler(update, context):
     file = context.bot.getFile(update.message.photo[-1].file_id)
     file.download('image.jpg')
     imgD = cv2.imread("image.jpg",0)
@@ -114,7 +114,7 @@ def image_handler(update, context):
     img2 = cv2.imread("resource/img2.jpg",0)
     H2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
     H2 = cv2.normalize(H2, H2, 0, 1, cv2.NORM_MINMAX, -1)
-    
+
     img3 = cv2.imread("resource/img3.jpg",0)
     H3 = cv2.calcHist([img3], [0], None, [256], [0, 256])
     H3 = cv2.normalize(H3, H2, 0, 1, cv2.NORM_MINMAX, -1)
@@ -165,8 +165,8 @@ def checkTemp(update, context):
 
 def main():
     """Start the bot."""
-    TOKEN = '1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8'
-    updater = Updater("1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8", use_context=True)
+    TOKEN = os.environ['TOKEN']
+    updater = Updater("TOKEN", use_context=True)
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
