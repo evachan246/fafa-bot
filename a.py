@@ -162,6 +162,17 @@ def checkTemp(update, context):
                 if(is_number(y)):
                     update.message.reply_text('今日天氣溫度係' +y+'度')
 
+def dllmcount(update, context):
+    message = (update.message.text).lower()
+    increaseTemp = 0
+    if(update.message.reply_to_message.from_user.id is not None):
+        if "dllm"  in message:
+            target = update.message.reply_to_message.from_user.id
+            update.message.reply_text(target)
+    count = 0
+    
+        
+    
 
 def main():
     """Start the bot."""
@@ -177,6 +188,7 @@ def main():
     dp.add_handler(MessageHandler(Filters.sticker , go))
     dp.add_handler(MessageHandler(Filters.photo , image_handler))
     dp.add_handler(MessageHandler(Filters.document, docmsg))
+    dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
