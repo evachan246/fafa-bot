@@ -175,16 +175,15 @@ def dllmcount(update, context):
 
 def main():
     """Start the bot."""
-    #TOKEN = os.environ['1312704556:AAGffoj-eFKsY7Y357zOduFoK4rxgMAm70M']
-    TOKEN = '1312704556:AAGffoj-eFKsY7Y357zOduFoK4rxgMAm70M'
-    updater = Updater(TOKEN, use_context=True)
+    TOKEN = os.environ['TOKEN']
+    updater = Updater("TOKEN", use_context=True)
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("start", start_command))
     #dp.add_handler(CommandHandler("help", help_command))
     # on noncommand i.e message - echo the message on Telegram
-    #dp.add_handler(CommandHandler("checkTemp", checkTemp))
+    dp.add_handler(CommandHandler("checkTemp", checkTemp))
     dp.add_handler(MessageHandler(Filters.sticker , go))
     dp.add_handler(MessageHandler(Filters.photo , image_handler))
     dp.add_handler(MessageHandler(Filters.document, docmsg))
