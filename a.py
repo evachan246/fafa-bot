@@ -176,6 +176,7 @@ def dllmcount(update, context):
 def main():
     """Start the bot."""
     #TOKEN = os.environ['1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8']
+    TOKEN = '1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8'
     updater = Updater("1312704556:AAE23BjzU1lL4SrREPqpdi6WNXSrb1z12f8", use_context=True)
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
