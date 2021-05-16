@@ -188,7 +188,7 @@ def main():
     dp.add_handler(MessageHandler(Filters.sticker , go))
     dp.add_handler(MessageHandler(Filters.photo , image_handler))
     dp.add_handler(MessageHandler(Filters.document, docmsg))
-    dp.add_handler(MessageHandler(Filters.text & Filters.group, dllmcount))
+    dp.add_handler(MessageHandler(Filters.text, dllmcount))
     
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
